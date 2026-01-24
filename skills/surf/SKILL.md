@@ -1,6 +1,6 @@
 ---
 name: surf
-description: Control Chrome browser via CLI for testing, automation, and debugging. Use when the user needs browser automation, screenshots, form filling, page inspection, network/CPU emulation, DevTools streaming, or AI queries via ChatGPT/Gemini/Perplexity/Grok.
+description: Control Chrome browser via CLI for testing, automation, and debugging. Use when the user needs browser automation, screenshots, form filling, page inspection, network/CPU emulation, or DevTools streaming.
 ---
 
 # Surf Browser Automation
@@ -11,7 +11,7 @@ Control Chrome browser via CLI or Unix socket.
 
 ```bash
 surf --help                    # Full help
-surf <group>                   # Group help (tab, scroll, page, wait, dialog, emulate, form, perf, ai)
+surf <group>                   # Group help (tab, scroll, page, wait, dialog, emulate, form, perf)
 surf --list                    # All 60+ tools
 surf --find <term>             # Search tools
 ```
