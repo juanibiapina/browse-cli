@@ -2,6 +2,32 @@
 
 ## [Unreleased]
 
+### Removed
+- **Deprecated command aliases** - Removed legacy command names that were blocked with migration hints. Use the new names instead:
+  - `read_page` → `page.read`
+  - `get_page_text` → `page.text`
+  - `page_state` → `page.state`
+  - `list_tabs`, `tabs_context` → `tab.list`
+  - `new_tab`, `tabs_create` → `tab.new`
+  - `switch_tab`, `tabs_get_by_name` → `tab.switch`
+  - `close_tab` → `tab.close`
+  - `tabs_register` → `tab.name`
+  - `tabs_unregister` → `tab.unname`
+  - `tabs_list_named` → `tab.named`
+  - `javascript_tool` → `js`
+  - `wait_for_element` → `wait.element`
+  - `wait_for_url` → `wait.url`
+  - `wait_for_network_idle` → `wait.network`
+  - `scroll_to_position`, `scroll_to` → `scroll.to`
+  - `get_scroll_info` → `scroll.info`
+  - `read_console_messages` → `console`
+  - `read_network_requests` → `network`
+  - `upload_image` → `upload`
+  - `resize_window` → `resize`
+  - `left_click`, `right_click`, `double_click`, `triple_click` → `click` (with `--button` option)
+  - `left_click_drag` → `drag`
+  - `type_submit` → `type --submit`
+
 ### Fixed
 - **page.read --all flag** - Removed dead `a.filter` fallback code; `--all` flag now correctly maps to `filter: "all"`
 

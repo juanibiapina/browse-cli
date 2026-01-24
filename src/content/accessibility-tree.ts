@@ -758,7 +758,7 @@ function generateAccessibilityTree(
       const elemRef = elementMap[refId];
       if (!elemRef) {
         return {
-          error: `Element with ref_id '${refId}' not found. Use read_page without ref_id to get current elements.`,
+          error: `Element with ref_id '${refId}' not found. Use page.read without ref_id to get current elements.`,
           pageContent: "",
           viewport: { width: window.innerWidth, height: window.innerHeight },
         };
@@ -767,7 +767,7 @@ function generateAccessibilityTree(
       if (!element) {
         delete elementMap[refId];
         return {
-          error: `Element with ref_id '${refId}' no longer exists. Use read_page without ref_id to get current elements.`,
+          error: `Element with ref_id '${refId}' no longer exists. Use page.read without ref_id to get current elements.`,
           pageContent: "",
           viewport: { width: window.innerWidth, height: window.innerHeight },
         };
@@ -1187,7 +1187,7 @@ function getElementCoordinates(ref: string): { x: number; y: number; error?: str
   }
   
   if (!element) {
-    return { x: 0, y: 0, error: `Element ${ref} not found. Use read_page to get current elements.` };
+    return { x: 0, y: 0, error: `Element ${ref} not found. Use page.read to get current elements.` };
   }
 
   const rect = element.getBoundingClientRect();
@@ -1214,7 +1214,7 @@ function setFormValue(ref: string, value: string | boolean | number): { success:
   }
   
   if (!element) {
-    return { success: false, error: `Element ${ref} not found. Use read_page to get current elements.` };
+    return { success: false, error: `Element ${ref} not found. Use page.read to get current elements.` };
   }
 
   const tagName = element.tagName.toLowerCase();
@@ -1311,7 +1311,7 @@ function scrollToElement(ref: string): { success: boolean; error?: string } {
   }
   
   if (!element) {
-    return { success: false, error: `Element ${ref} not found. Run read_page to get current element refs.` };
+    return { success: false, error: `Element ${ref} not found. Run page.read to get current element refs.` };
   }
 
   element.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -1352,7 +1352,7 @@ function uploadImage(
       }
       
       if (!targetElement) {
-        return { success: false, error: `Element ${ref} not found. Run read_page to get current element refs.` };
+        return { success: false, error: `Element ${ref} not found. Run page.read to get current element refs.` };
       }
     } else if (coordinate) {
       targetElement = document.elementFromPoint(coordinate[0], coordinate[1]) as HTMLElement | null;
@@ -1443,7 +1443,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         element = window.__piRefs[message.ref];
       }
       if (!element) {
-        sendResponse({ error: `Element ${message.ref} not found. Use read_page to get current elements.` });
+        sendResponse({ error: `Element ${message.ref} not found. Use page.read to get current elements.` });
         break;
       }
       if (message.button === "triple") {

@@ -54,13 +54,6 @@ test_output "help topic selectors" "node cli.cjs --help-topic selectors" "CSS Se
 test_output "help topic cookies" "node cli.cjs --help-topic cookies" "Cookie Management"
 
 echo ""
-echo "-- Migration Hints --"
-test_output "removed read_page" "node cli.cjs read_page" "Use: page.read"
-test_output "removed list_tabs" "node cli.cjs list_tabs" "Use: tab.list"
-test_output "removed wait_for_element" "node cli.cjs wait_for_element" "Use: wait.element"
-test_output "removed javascript_tool" "node cli.cjs javascript_tool" "Use: js"
-
-echo ""
 echo "-- Aliases --"
 test_output "snap help" "node cli.cjs snap --help" "snap -> screenshot"
 test_output "read help" "node cli.cjs read --help" "accessibility tree"

@@ -529,21 +529,6 @@ function mapToolToMessage(tool, args, tabId) {
       return mapComputerAction(args, tabId);
     case "navigate":
       return { type: "EXECUTE_NAVIGATE", url: a.url, ...baseMsg };
-    case "read_page":
-      return { 
-        type: "READ_PAGE", 
-        options: { 
-          filter: a.filter || "interactive",
-          depth: a.depth,
-          refId: a.ref_id,
-          format: a.format,
-          forceFullSnapshot: a.forceFullSnapshot ?? false,
-          includeScreenshot: a.includeScreenshot ?? false
-        },
-        ...baseMsg 
-      };
-    case "get_page_text":
-      return { type: "GET_PAGE_TEXT", ...baseMsg };
     case "form_input":
       return { type: "FORM_INPUT", ref: a.ref, value: a.value, ...baseMsg };
     case "eval":
@@ -556,16 +541,8 @@ function mapToolToMessage(tool, args, tabId) {
       return { type: "SET_INPUT_VALUE", selector: a.selector, ref: a.ref, value: a.value, ...baseMsg };
     case "smart_type":
       return { type: "SMART_TYPE", selector: a.selector, text: a.text, clear: a.clear ?? true, submit: a.submit ?? false, ...baseMsg };
-    case "scroll_to_position":
-      return { type: "SCROLL_TO_POSITION", position: a.position, selector: a.selector, ...baseMsg };
-    case "get_scroll_info":
-      return { type: "GET_SCROLL_INFO", selector: a.selector, ...baseMsg };
     case "close_dialogs":
       return { type: "CLOSE_DIALOGS", maxAttempts: a.maxAttempts ?? 3, ...baseMsg };
-    case "page_state":
-      return { type: "PAGE_STATE", ...baseMsg };
-    case "tabs_context":
-      return { type: "GET_TABS" };
     case "screenshot":
       return { 
         type: "EXECUTE_SCREENSHOT", 
@@ -577,31 +554,7 @@ function mapToolToMessage(tool, args, tabId) {
         maxSize: a["max-size"] || 1200,
         ...baseMsg 
       };
-    case "javascript_tool":
-      return { type: "EXECUTE_JAVASCRIPT", code: a.code, ...baseMsg };
-    case "wait_for_element":
-      return { 
-        type: "WAIT_FOR_ELEMENT", 
-        selector: a.selector,
-        state: a.state || "visible",
-        timeout: a.timeout || 20000,
-        ...baseMsg 
-      };
-    case "wait_for_url":
-      return { 
-        type: "WAIT_FOR_URL", 
-        pattern: a.pattern || a.url || a.urlContains,
-        timeout: a.timeout || 20000,
-        ...baseMsg 
-      };
-    case "wait_for_network_idle":
-      return { 
-        type: "WAIT_FOR_NETWORK_IDLE", 
-        timeout: a.timeout || 10000,
-        ...baseMsg 
-      };
     case "console":
-    case "read_console_messages":
       return { 
         type: "READ_CONSOLE_MESSAGES", 
         onlyErrors: a.only_errors,
@@ -611,7 +564,6 @@ function mapToolToMessage(tool, args, tabId) {
         ...baseMsg 
       };
     case "network":
-    case "get_network_entries":
       return { 
         type: "READ_NETWORK_REQUESTS",
         full: a.v || a.vv || a.format === 'curl' || a.format === 'verbose' || a.format === 'raw',
@@ -626,7 +578,6 @@ function mapToolToMessage(tool, args, tabId) {
       };
 
     case "network.get":
-    case "get_network_entry":
       return { 
         type: "GET_NETWORK_ENTRY", 
         requestId: a.id || args[0],
@@ -686,48 +637,6 @@ function mapToolToMessage(tool, args, tabId) {
         ...baseMsg 
       };
 
-    case "read_network_requests":
-      return { 
-        type: "READ_NETWORK_REQUESTS", 
-        urlPattern: a.url_pattern,
-        limit: a.limit,
-        clear: a.clear,
-        ...baseMsg 
-      };
-    case "upload_image":
-      return { 
-        type: "UPLOAD_IMAGE", 
-        screenshotId: a.screenshot_id,
-        ref: a.ref,
-        coordinate: a.coordinate,
-        filename: a.filename,
-        ...baseMsg 
-      };
-    case "resize_window":
-      return { 
-        type: "RESIZE_WINDOW", 
-        width: a.width, 
-        height: a.height, 
-        ...baseMsg 
-      };
-    case "tabs_create":
-      return { type: "TABS_CREATE", url: a.url, ...baseMsg };
-    case "tabs_register":
-      return { type: "TABS_REGISTER", name: a.name, ...baseMsg };
-    case "tabs_get_by_name":
-      return { type: "TABS_GET_BY_NAME", name: a.name };
-    case "tabs_list_named":
-      return { type: "TABS_LIST_NAMED" };
-    case "tabs_unregister":
-      return { type: "TABS_UNREGISTER", name: a.name };
-    case "list_tabs":
-      return { type: "LIST_TABS" };
-    case "new_tab":
-      return { type: "NEW_TAB", url: a.url, urls: a.urls };
-    case "switch_tab":
-      return { type: "SWITCH_TAB", tabId: a.tab_id || a.tabId };
-    case "close_tab":
-      return { type: "CLOSE_TAB", tabId: a.tab_id || a.tabId, tabIds: a.tab_ids || a.tabIds };
     case "tab.list":
       return { type: "LIST_TABS" };
     case "tab.new":
@@ -925,10 +834,6 @@ function mapToolToMessage(tool, args, tabId) {
         ...baseMsg 
       };
     case "type":
-    case "left_click":
-    case "right_click":
-    case "double_click":
-    case "triple_click":
     case "key":
     case "hover":
     case "drag":

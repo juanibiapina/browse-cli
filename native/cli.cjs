@@ -301,39 +301,6 @@ const ALIASES = {
   "network.dump": "network.get",
 };
 
-const REMOVED_COMMANDS = {
-  read_page: "page.read",
-  get_page_text: "page.text",
-  page_state: "page.state",
-  list_tabs: "tab.list",
-  new_tab: "tab.new",
-  switch_tab: "tab.switch",
-  close_tab: "tab.close",
-  scroll_to: "scroll.to",
-  scroll_to_position: "scroll.to",
-  get_scroll_info: "scroll.info",
-  wait_for_element: "wait.element",
-  wait_for_url: "wait.url",
-  wait_for_network_idle: "wait.network",
-  javascript_tool: "js",
-  read_console_messages: "console",
-  read_network_requests: "network",
-  tabs_context: "tab.list",
-  tabs_create: "tab.new",
-  tabs_register: "tab.name",
-  tabs_unregister: "tab.unname",
-  tabs_get_by_name: "tab.switch",
-  tabs_list_named: "tab.named",
-  upload_image: "upload",
-  resize_window: "resize",
-  type_submit: "type --submit",
-  left_click: "click",
-  right_click: "click --button right",
-  double_click: "click --button double",
-  triple_click: "click --button triple",
-  left_click_drag: "drag",
-};
-
 const TOOLS = {
   ai: {
     desc: "AI assistants (ChatGPT, Gemini)",
@@ -1408,10 +1375,9 @@ Exclude text content:
 const ALL_SOCKET_TOOLS = [
   "ai", "screenshot", "navigate",
   "form_input", "find_and_type", "autocomplete", "set_value", "smart_type",
-  "scroll_to_position", "get_scroll_info", "close_dialogs", "page_state",
-  "javascript_tool", "health", "smoke",
-  "click_type", "click_type_submit", "type", "key", "type_submit",
-  "scroll", "scroll_to", "hover", "left_click_drag", "drag", "wait",
+  "close_dialogs", "health", "smoke",
+  "click_type", "click_type_submit", "type", "key",
+  "scroll", "hover", "drag", "wait",
   "computer",
   "page.read", "page.text", "page.state",
   "locate.role", "locate.text", "locate.label",
@@ -2435,12 +2401,6 @@ if (!tool) {
   process.exit(1);
 }
 
-if (REMOVED_COMMANDS[tool]) {
-  console.error(`Error: Unknown command: ${tool}`);
-  console.error(`This command was renamed. Use: ${REMOVED_COMMANDS[tool]}`);
-  process.exit(1);
-}
-
 tool = ALIASES[tool] || tool;
 
 // Auto-save screenshots to temp file when no --output specified
@@ -2488,19 +2448,14 @@ const PRIMARY_ARG_MAP = {
   navigate: "url",
   go: "url",
   js: "code",
-  javascript_tool: "code",
   key: "key",
   wait: "duration",
   health: "url",
-  new_tab: "url",
   "tab.new": "url",
-  switch_tab: "tab_id",
   "tab.switch": "id",
-  close_tab: "tab_id",
   "tab.close": "id",
   "tab.name": "name",
   "tab.unname": "name",
-  scroll_to_position: "position",
   type: "text",
   smart_type: "text",
   "emulate.network": "preset",

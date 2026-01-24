@@ -2,14 +2,14 @@
 
 ## Add CLI Command
 
-1. Add to `TOOLS` in `native/cli.cjs:158` (args, opts, examples)
-2. Add handler in `src/service-worker/index.ts:50` `handleMessage()` switch
-3. CDP op? Add method in `src/cdp/controller.ts:60`
-4. DOM interaction? Add handler in `src/content/accessibility-tree.ts:99`
+1. Add to `TOOLS` in `native/cli.cjs` (args, opts, examples)
+2. Add handler in `src/service-worker/index.ts` `handleMessage()` switch
+3. CDP op? Add method in `src/cdp/controller.ts`
+4. DOM interaction? Add handler in `src/content/accessibility-tree.ts`
 
 ## Add CDP Operation
 
-1. Add method to `CDPController` class in `src/cdp/controller.ts:60`
+1. Add method to `CDPController` class in `src/cdp/controller.ts`
 2. Use `this.send(tabId, "Domain.method", params)`
 3. Handle events in `handleCDPEvent()` if needed
 
@@ -39,9 +39,13 @@
 
 **native/host.cjs** (~1500L) - Socket server, AI integration
 - handleToolRequest(): main dispatcher
-- mapToolToMessage(): tool to extension message converter
 - queueAiRequest(): AI request serialization
 - AI clients: chatgptClient, geminiClient, perplexityClient, grokClient
+
+**native/host-helpers.cjs** - Tool mapping and formatting
+- mapToolToMessage(): tool to extension message converter
+- mapComputerAction(): computer tool action handler
+- formatToolContent(): response formatting
 
 **src/native/port-manager.ts** - Extension to native messaging, auto-reconnect, request/response tracking
 

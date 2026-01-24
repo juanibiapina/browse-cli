@@ -407,7 +407,7 @@ function handleToolRequest(msg, socket) {
     pendingToolRequests.set(pageRequestId, {
       socket: null,
       originalId: null,
-      tool: "read_page",
+      tool: "page.read",
       onComplete: async (pageResult) => {
         if (pageResult.error) {
           sendToolResponse(socket, originalId, null, `Failed to read page: ${pageResult.error}`);
@@ -457,7 +457,7 @@ function handleToolRequest(msg, socket) {
           pendingToolRequests.set(pageId, {
             socket: null,
             originalId: null,
-            tool: "read_page",
+            tool: "page.read",
             onComplete: resolve
           });
           writeMessage({ type: "GET_PAGE_TEXT", tabId: extensionMsg.tabId, id: pageId });
@@ -505,7 +505,7 @@ function handleToolRequest(msg, socket) {
           pendingToolRequests.set(tabCloseId, {
             socket: null,
             originalId: null,
-            tool: "close_tab",
+            tool: "tab.close",
             onComplete: (r) => resolve(r)
           });
           writeMessage({ type: "CHATGPT_CLOSE_TAB", tabId: tabIdToClose, id: tabCloseId });
@@ -558,7 +558,7 @@ function handleToolRequest(msg, socket) {
           pendingToolRequests.set(pageId, {
             socket: null,
             originalId: null,
-            tool: "read_page",
+            tool: "page.read",
             onComplete: resolve
           });
           writeMessage({ type: "GET_PAGE_TEXT", tabId: extensionMsg.tabId, id: pageId });
@@ -596,7 +596,7 @@ function handleToolRequest(msg, socket) {
           pendingToolRequests.set(tabCloseId, {
             socket: null,
             originalId: null,
-            tool: "close_tab",
+            tool: "tab.close",
             onComplete: (r) => resolve(r)
           });
           writeMessage({ type: "PERPLEXITY_CLOSE_TAB", tabId: tabIdToClose, id: tabCloseId });
@@ -653,7 +653,7 @@ function handleToolRequest(msg, socket) {
           pendingToolRequests.set(pageId, {
             socket: null,
             originalId: null,
-            tool: "get_page_text",
+            tool: "page.text",
             onComplete: resolve
           });
           writeMessage({ type: "GET_PAGE_TEXT", tabId: extensionMsg.tabId, id: pageId });
@@ -726,7 +726,7 @@ function handleToolRequest(msg, socket) {
           pendingToolRequests.set(pageId, {
             socket: null,
             originalId: null,
-            tool: "get_page_text",
+            tool: "page.text",
             onComplete: resolve
           });
           writeMessage({ type: "GET_PAGE_TEXT", tabId: extensionMsg.tabId, id: pageId });
@@ -776,7 +776,7 @@ function handleToolRequest(msg, socket) {
           pendingToolRequests.set(tabCloseId, {
             socket: null,
             originalId: null,
-            tool: "close_tab",
+            tool: "tab.close",
             onComplete: (r) => resolve(r)
           });
           writeMessage({ type: "GROK_CLOSE_TAB", tabId: tabIdToClose, id: tabCloseId });
@@ -864,7 +864,7 @@ function handleToolRequest(msg, socket) {
           pendingToolRequests.set(tabCloseId, {
             socket: null,
             originalId: null,
-            tool: "close_tab",
+            tool: "tab.close",
             onComplete: (r) => resolve(r)
           });
           writeMessage({ type: "GROK_CLOSE_TAB", tabId: tabIdToClose, id: tabCloseId });
