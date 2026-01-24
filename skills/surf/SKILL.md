@@ -87,6 +87,8 @@ surf page.text                 # Plain text content
 surf page.state                # Modals, loading state, scroll info
 ```
 
+**Note:** `page.read` returns only elements in the visible viewport. Refs remain valid for off-screen elements - you can still `click e5` even after scrolling. Use `scroll.to --ref e5` to bring an element into view.
+
 ## Scrolling
 
 ```bash

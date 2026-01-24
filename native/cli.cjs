@@ -180,7 +180,7 @@ const TOOLS = {
     desc: "Page inspection",
     commands: {
       "page.read": { 
-        desc: "Get accessibility tree + visible text", 
+        desc: "Get accessibility tree + visible text (viewport only, refs work off-screen)", 
         args: [], 
         opts: { 
           all: "Include all elements", 

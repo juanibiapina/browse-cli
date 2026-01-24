@@ -127,6 +127,8 @@ surf page.state                     # Modals, loading state, scroll position
 
 Element refs (`e1`, `e2`, `e3`...) are stable identifiers from the accessibility tree - semantic, predictable, and resilient to DOM changes.
 
+**Note:** `surf read` returns only elements **visible in the current viewport** to minimize output size for LLMs. Refs remain valid for off-screen elements - you can still `click e5` even if `e5` isn't in the current output. Scroll to see more elements, or use `scroll.to --ref e5` to bring an element into view.
+
 ### Semantic Locators
 
 Find and interact with elements by role, text, or label - no refs or selectors needed:
