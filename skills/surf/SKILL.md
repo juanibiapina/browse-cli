@@ -81,11 +81,17 @@ surf key.repeat --key Tab --count 5           # Repeat key presses
 ## Page Inspection
 
 ```bash
-surf page.read                 # Accessibility tree with refs
+surf page.read                 # Accessibility tree with refs (viewport only)
 surf page.read --ref e5        # Get specific element details
-surf page.text                 # Plain text content
+surf page.read --all           # All elements (may hit 50K char limit on large pages)
+surf page.text                 # Full page text content (no limit)
 surf page.state                # Modals, loading state, scroll info
 ```
+
+**When to use which:**
+- **`page.text`** - Get full page text content. No size limit. Best for reading/understanding page content.
+- **`page.read`** - Get element refs for visible viewport. Use when you need to interact (click, type).
+- **`page.read --all`** - All elements with refs. Can fail on large pages (50K char limit).
 
 **Note:** `page.read` returns only elements in the visible viewport. Refs remain valid for off-screen elements - you can still `click e5` even after scrolling. Use `scroll.to --ref e5` to bring an element into view.
 
