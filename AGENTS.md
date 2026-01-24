@@ -1,5 +1,34 @@
 # surf-cli Development Guide
 
+## Dev Extension Setup
+
+**One-time setup:**
+1. Build the extension: `npm run build`
+2. In Chrome, go to `chrome://extensions`, enable "Developer mode"
+3. Click "Load unpacked" → select `dist/` folder
+4. Copy the extension ID and install native host:
+   ```bash
+   node native/cli.cjs install <extension-id>
+   ```
+5. Restart Chrome
+
+**During development:**
+```bash
+npm run build        # Rebuild after changes
+```
+
+Note: Avoid `npm run dev` (watch mode) - it causes high CPU usage and hangs.
+
+After changes:
+- **Extension code** (`src/`): Run `npm run build`, then click refresh icon at `chrome://extensions`
+- **Native host** (`native/`): Changes apply immediately
+- **CLI** (`native/cli.cjs`): Changes apply immediately
+
+**Testing:**
+```bash
+node native/cli.cjs tab.list    # Use local CLI
+```
+
 ## Add CLI Command
 
 1. Add to `TOOLS` in `native/cli.cjs` (args, opts, examples)
