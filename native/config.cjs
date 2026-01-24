@@ -13,25 +13,8 @@ const STARTER_CONFIG = {
   autoSaveScreenshots: true,
   routes: {
     main: ["http://localhost:3000"]
-  },
-  selectors: {
-    chatgpt: {
-      input: "#prompt-textarea"
-    }
   }
 };
-
-// Grok models can be customized in surf.json if X.com UI changes:
-// {
-//   "grok": {
-//     "models": {
-//       "thinking": { "id": "thinking", "name": "Grok 4.1 Thinking" },
-//       "auto": { "id": "auto", "name": "Auto" },
-//       "fast": { "id": "fast", "name": "Fast" },
-//       "expert": { "id": "expert", "name": "Expert" }
-//     }
-//   }
-// }
 
 function findConfigPath() {
   const cwdPath = path.join(process.cwd(), CONFIG_NAME);

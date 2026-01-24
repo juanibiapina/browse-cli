@@ -281,46 +281,6 @@ surf perf.start                     # Start tracing
 surf perf.stop                      # Stop and get trace data
 ```
 
-### AI Queries (No API Keys)
-
-Query AI models using your browser's logged-in session:
-
-```bash
-# ChatGPT
-surf chatgpt "explain this code"
-surf chatgpt "summarize" --with-page     # Include page context
-surf chatgpt "analyze" --model gpt-4o    # Specify model
-surf chatgpt "review" --file code.ts     # Attach file
-
-# Gemini
-surf gemini "explain quantum computing"
-surf gemini "summarize" --with-page                           # Include page context
-surf gemini "analyze" --file data.csv                         # Attach file
-surf gemini "a robot surfing" --generate-image /tmp/robot.png # Generate image
-surf gemini "add sunglasses" --edit-image photo.jpg --output out.jpg
-surf gemini "summarize" --youtube "https://youtube.com/..."   # YouTube analysis
-surf gemini "hello" --model gemini-2.5-flash                  # Model selection
-
-# Perplexity
-surf perplexity "what is quantum computing"
-surf perplexity "explain this page" --with-page               # Include page context
-surf perplexity "deep dive" --mode research                   # Research mode (Pro)
-surf perplexity "latest news" --model sonar                   # Model selection (Pro)
-
-# Grok (queries x.com/i/grok using your X.com login)
-surf grok "what are the latest AI agent trends on X"          # Search X posts
-surf grok "analyze @username recent activity"                 # Profile analysis
-surf grok "summarize this page" --with-page                   # Include page context
-surf grok "find viral AI posts" --deep-search                 # DeepSearch mode
-surf grok "quick question" --model fast                       # Models: auto, fast, expert, thinking
-surf grok --validate                                          # Check UI and available models
-surf grok --validate --save-models                            # Save discovered models to settings
-```
-
-Each AI tool uses your existing browser login - no API keys needed. Just be logged into the respective service in Chrome (chatgpt.com, gemini.google.com, perplexity.ai, or x.com).
-
-**Grok troubleshooting:** If queries fail, run `surf grok --validate` to check if the UI structure changed. Use `--save-models` to update the model cache in `surf.json`. Default model is "thinking" (Grok 4.1 Thinking).
-
 ### Waiting
 
 ```bash

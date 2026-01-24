@@ -20,19 +20,6 @@ The system consists of three main components that communicate through well-defin
                                                                              └─────────────────┘
 ```
 
-For AI commands (`surf chatgpt`, `surf gemini`, etc.), the native host uses client modules that automate browser-based AI interfaces through the extension:
-
-```
-surf chatgpt "query"
-       │
-       ▼
-┌──────────────┐      ┌───────────────────┐      ┌──────────────────┐      ┌─────────────┐
-│  Native Host │ ──── │  AI Client Module │ ──── │ Chrome Extension │ ──── │  AI Website │
-│              │      │  (chatgpt-client) │      │  (create tab,    │      │  (chatgpt.  │
-│              │      │                   │      │   execute JS)    │      │   com)      │
-└──────────────┘      └───────────────────┘      └──────────────────┘      └─────────────┘
-```
-
 ### CLI (`native/cli.cjs`)
 
 The command-line interface that users and AI agents interact with directly.
@@ -49,8 +36,6 @@ A Node.js process that bridges the CLI and Chrome extension.
 - Listens on Unix socket `/tmp/surf.sock`
 - Translates CLI commands to extension messages via `mapToolToMessage()`
 - Communicates with Chrome using the native messaging protocol
-- Manages AI client requests (ChatGPT, Gemini, Perplexity, Grok)
-- Handles workflow execution (`do` command)
 
 ### Chrome Extension (`src/`)
 
@@ -127,8 +112,7 @@ surf-cli/
 │   ├── cli.cjs             # CLI entry point
 │   ├── host.cjs            # Native host server
 │   ├── protocol.cjs        # Message encoding
-│   ├── host-helpers.cjs    # Tool-to-message mapping
-│   └── *-client.cjs        # AI client implementations
+│   └── host-helpers.cjs    # Tool-to-message mapping
 │
 ├── src/                    # Chrome extension (TypeScript)
 │   ├── service-worker/     # Background script, message routing

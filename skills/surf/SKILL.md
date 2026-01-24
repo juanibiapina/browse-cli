@@ -36,79 +36,6 @@ surf type --text "hello"
 surf screenshot --output /tmp/shot.png
 ```
 
-## AI Assistants (No API Keys)
-
-Query AI models using your browser's logged-in session. Must be logged into the respective service in Chrome.
-
-### ChatGPT
-```bash
-surf chatgpt "explain this code"
-surf chatgpt "summarize" --with-page              # Include current page context
-surf chatgpt "review" --model gpt-4o              # Specify model
-surf chatgpt "analyze" --file document.pdf        # With file attachment
-```
-
-### Gemini
-```bash
-surf gemini "explain quantum computing"
-surf gemini "summarize" --with-page               # Include page context
-surf gemini "analyze" --file data.csv             # Attach file
-surf gemini "a robot surfing" --generate-image /tmp/robot.png
-surf gemini "add sunglasses" --edit-image photo.jpg --output out.jpg
-surf gemini "summarize" --youtube "https://youtube.com/..."
-surf gemini "hello" --model gemini-2.5-flash      # Model selection
-```
-
-### Perplexity
-```bash
-surf perplexity "what is quantum computing"
-surf perplexity "explain this page" --with-page   # Include page context
-surf perplexity "deep dive" --mode research       # Research mode (Pro)
-surf perplexity "latest news" --model sonar       # Model selection (Pro)
-```
-
-### Grok (via x.com - requires X.com login in Chrome)
-```bash
-surf grok "what are the latest AI trends on X"    # Search X posts
-surf grok "analyze @username recent activity"     # Profile analysis  
-surf grok "summarize this page" --with-page       # Include page context
-surf grok "find viral AI posts" --deep-search     # DeepSearch mode
-surf grok "quick question" --model fast           # Models: auto, fast, expert, thinking (default)
-```
-
-**Grok Validation & Troubleshooting:**
-```bash
-# Validate Grok UI and check available models (no query sent)
-surf grok --validate
-
-# If models changed, save discovered models to surf.json config
-surf grok --validate --save-models
-```
-
-### AI Tool Troubleshooting
-
-When AI queries fail, check these common issues:
-
-1. **Not logged in**: The error "login required" means you need to log into the service in Chrome
-2. **Model selection failed**: The UI may have changed. Run `surf grok --validate` to check
-3. **Response timeout**: Thinking models (ChatGPT o1, Grok thinking) can take 45+ seconds
-4. **Element not found**: The service's UI changed. Check for surf-cli updates
-
-**Debugging workflow for agents:**
-```bash
-# 1. Check if the service is accessible and UI is valid
-surf grok --validate
-
-# 2. If models mismatch, update the local settings
-surf grok --validate --save-models
-
-# 3. Retry with explicit model name from validation output
-surf grok "query" --model <model-from-validation>
-
-# 4. If still failing, try with longer timeout
-surf grok "query" --timeout 600
-```
-
 ## Tab Management
 
 ```bash
@@ -323,12 +250,9 @@ surf wait.element ".missing" --auto-capture --timeout 2000
 
 1. **First CDP operation is slow** (~5-8s) - debugger attachment overhead, subsequent calls fast
 2. **Use refs from page.read** for reliable element targeting over CSS selectors
-3. **JS method for contenteditable** - Modern editors (ChatGPT, Claude, Notion) need `--method js`
+3. **JS method for contenteditable** - Modern editors (Notion, etc.) need `--method js`
 4. **Named tabs for multi-step tasks** - `tab.name app` then `tab.switch app`
 5. **Auto-capture for debugging** - `--auto-capture` saves diagnostics on failure
-6. **AI tools use browser session** - Must be logged into the service, no API keys needed
-7. **Grok validation** - Run `surf grok --validate` if queries fail to check UI changes
-8. **Long timeouts for thinking models** - ChatGPT o1, Grok thinking can take 60+ seconds
 
 ## Socket API
 

@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Removed
+- **AI assistant commands** - Removed all browser-based AI integration features:
+  - `surf chatgpt` - ChatGPT queries via chatgpt.com
+  - `surf gemini` - Gemini queries via gemini.google.com (including image generation)
+  - `surf perplexity` - Perplexity AI search
+  - `surf grok` - Grok queries via x.com
+  - `surf ai` - Page analysis using Gemini API
+  - Removed client files: `chatgpt-client.cjs`, `gemini-client.cjs`, `perplexity-client.cjs`, `grok-client.cjs`
+  - Removed `@google/generative-ai` dependency
 - **MCP server** - Removed Model Context Protocol support. The `surf server` command and `@modelcontextprotocol/sdk` dependency have been removed. Surf is now purely CLI-based - use the CLI directly or via Unix socket at `/tmp/surf.sock`.
 - **Workflows feature** - Removed the entire workflows system including:
   - `surf do` command for inline and file-based workflows

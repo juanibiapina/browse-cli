@@ -37,10 +37,8 @@
 - AUTO_SCREENSHOT_TOOLS: commands that auto-capture
 - parseArgs(), sendRequest()
 
-**native/host.cjs** (~1500L) - Socket server, AI integration
+**native/host.cjs** (~1000L) - Socket server
 - handleToolRequest(): main dispatcher
-- queueAiRequest(): AI request serialization
-- AI clients: chatgptClient, geminiClient, perplexityClient, grokClient
 
 **native/host-helpers.cjs** - Tool mapping and formatting
 - mapToolToMessage(): tool to extension message converter

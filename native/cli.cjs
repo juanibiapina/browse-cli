@@ -57,97 +57,6 @@ const ALIASES = {
 };
 
 const TOOLS = {
-  ai: {
-    desc: "AI assistants (ChatGPT, Gemini)",
-    commands: {
-      "chatgpt": { 
-        desc: "Send prompt to ChatGPT (uses browser cookies)", 
-        args: ["query"], 
-        opts: { 
-          "with-page": "Include current page context",
-          model: "Model: gpt-4o, o1, etc.",
-          file: "Attach file",
-          timeout: "Timeout in seconds (default: 2700 = 45min)"
-        },
-        examples: [
-          { cmd: 'chatgpt "explain this code"', desc: "Basic query" },
-          { cmd: 'chatgpt "summarize" --with-page', desc: "With page context" },
-          { cmd: 'chatgpt "review" --file code.ts', desc: "With file" },
-          { cmd: 'chatgpt "analyze" --model gpt-4o', desc: "Specify model" },
-        ]
-      },
-      "gemini": { 
-        desc: "Send prompt to Gemini (uses browser cookies)", 
-        args: ["query"], 
-        opts: { 
-          "with-page": "Include current page context",
-          model: "Model: gemini-3-pro (default), gemini-2.5-pro, gemini-2.5-flash",
-          file: "Attach file to analyze",
-          "generate-image": "Generate image and save to path",
-          "edit-image": "Edit existing image (use with --output)",
-          output: "Output file path for image operations",
-          youtube: "YouTube video URL to analyze",
-          "aspect-ratio": "Aspect ratio for image generation (e.g., 1:1, 16:9)",
-          timeout: "Timeout in seconds (default: 300)"
-        },
-        examples: [
-          { cmd: 'gemini "explain quantum computing"', desc: "Basic query" },
-          { cmd: 'gemini "summarize" --with-page', desc: "With page context" },
-          { cmd: 'gemini "analyze" --file data.csv', desc: "With file attachment" },
-          { cmd: 'gemini "a robot surfing" --generate-image /tmp/robot.png', desc: "Generate image" },
-          { cmd: 'gemini "add sunglasses" --edit-image photo.jpg --output out.jpg', desc: "Edit image" },
-          { cmd: 'gemini "summarize this video" --youtube "https://youtube.com/..."', desc: "YouTube analysis" },
-        ]
-      },
-      "perplexity": {
-        desc: "Search with Perplexity AI (uses browser session)",
-        args: ["query"],
-        opts: {
-          "with-page": "Include current page context",
-          mode: "Mode: search (default), research",
-          model: "Model (Pro users): sonar, gpt-4o, claude, etc.",
-          timeout: "Timeout in seconds (default: 120)"
-        },
-        examples: [
-          { cmd: 'perplexity "what is quantum computing"', desc: "Basic search" },
-          { cmd: 'perplexity "explain this page" --with-page', desc: "With page context" },
-          { cmd: 'perplexity "deep dive into transformers" --mode research', desc: "Research mode" },
-          { cmd: 'perplexity "latest AI news" --model sonar', desc: "Specify model (Pro)" },
-        ]
-      },
-      "grok": {
-        desc: "Query Grok AI with real-time X/Twitter data access (uses browser session)",
-        args: ["query"],
-        opts: {
-          "with-page": "Include current page context",
-          model: "Model: auto, fast, expert, thinking (default)",
-          "deep-search": "Enable DeepSearch for X post searching",
-          timeout: "Timeout in seconds (default: 300 for thinking models)",
-          validate: "Check Grok UI and scrape available models (no query sent)",
-          "save-models": "Save discovered models to surf.json config"
-        },
-        examples: [
-          { cmd: 'grok "what are the latest AI agent trends on X"', desc: "Search X posts" },
-          { cmd: 'grok "analyze @username recent activity"', desc: "Profile analysis" },
-          { cmd: 'grok "summarize this page" --with-page', desc: "With page context" },
-          { cmd: 'grok "find viral AI posts" --deep-search', desc: "DeepSearch mode" },
-          { cmd: 'grok "quick question" --model fast', desc: "Faster model" },
-          { cmd: 'grok --validate', desc: "Check UI and list available models" },
-          { cmd: 'grok --validate --save-models', desc: "Save discovered models to settings" },
-        ]
-      },
-      "ai": { 
-        desc: "Analyze page with AI (requires GOOGLE_API_KEY)", 
-        args: ["query"], 
-        opts: { mode: "Query mode: find|summary|extract (auto-detected)" },
-        examples: [
-          { cmd: 'ai "find the login button"', desc: "Find element" },
-          { cmd: 'ai "summarize this page"', desc: "Get summary" },
-          { cmd: 'ai "extract all links as json"', desc: "Extract data" },
-        ]
-      },
-    }
-  },
   tab: {
     desc: "Tab management",
     commands: {
@@ -1082,7 +991,7 @@ Exclude text content:
 };
 
 const ALL_SOCKET_TOOLS = [
-  "ai", "screenshot", "navigate",
+  "screenshot", "navigate",
   "form_input", "find_and_type", "autocomplete", "set_value", "smart_type",
   "close_dialogs", "health", "smoke",
   "click_type", "click_type_submit", "type", "key",
@@ -1629,11 +1538,6 @@ if (tool === "smoke") {
 }
 
 const PRIMARY_ARG_MAP = {
-  ai: "query",
-  gemini: "query",
-  chatgpt: "query",
-  perplexity: "query",
-  grok: "query",
   navigate: "url",
   go: "url",
   js: "code",
@@ -1995,8 +1899,8 @@ const socket = net.createConnection(SOCKET_PATH, () => {
   socket.write(JSON.stringify(request) + "\n");
 });
 
-const AI_TOOLS = ["smoke", "chatgpt", "gemini", "perplexity", "grok", "ai"];
-const requestTimeout = AI_TOOLS.includes(tool) ? 300000 : 30000;
+const LONG_TIMEOUT_TOOLS = ["smoke"];
+const requestTimeout = LONG_TIMEOUT_TOOLS.includes(tool) ? 300000 : 30000;
 const timeout = setTimeout(() => {
   console.error(`Error: Request timed out (${requestTimeout / 1000}s)`);
   socket.destroy();
@@ -2138,12 +2042,6 @@ async function handleResponse(response) {
     } else {
       console.log(JSON.stringify(data, null, 2));
     }
-  } else if (tool === "ai" && data?.aiResult) {
-    if (data.mode === "find") {
-      console.log(data.ref || "NOT_FOUND");
-    } else {
-      console.log(data.content);
-    }
   } else if (tool === "page.read" && data?.pageContent) {
     console.log(data.pageContent);
   } else if (tool === "page.text" && data?.text) {
@@ -2243,21 +2141,6 @@ async function handleResponse(response) {
     for (const [key, val] of Object.entries(data.paths)) {
       console.log(`${key}: ${val}`);
     }
-  } else if ((tool === "chatgpt" || tool === "gemini") && data?.response) {
-    console.log(data.response);
-    if (data.imagePath) {
-      console.log(`\nImage saved: ${data.imagePath}`);
-    }
-    console.error(`\n[${data.model || 'unknown'} | ${((data.tookMs || 0) / 1000).toFixed(1)}s]`);
-  } else if (tool === "perplexity" && data?.response) {
-    console.log(data.response);
-    const meta = [];
-    if (data.sources) meta.push(`${data.sources} sources`);
-    if (data.mode) meta.push(data.mode);
-    if (data.model && data.model !== 'default') meta.push(data.model);
-    meta.push(`${((data.tookMs || 0) / 1000).toFixed(1)}s`);
-    console.error(`\n[${meta.join(' | ')}]`);
-    if (data.url) console.error(`URL: ${data.url}`);
   } else if (tool === "window.list" && data?.windows) {
     if (data.windows.length === 0) {
       console.log("No windows. Use 'surf window.new' to create one.");
