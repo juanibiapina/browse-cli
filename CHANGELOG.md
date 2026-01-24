@@ -50,6 +50,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - **page.read --all flag** - Removed dead `a.filter` fallback code; `--all` flag now correctly maps to `filter: "all"`
+- **scroll command** - Fixed three issues with scroll commands:
+  - `scroll down` now works (was silently ignoring positional direction argument)
+  - CDP mouseWheel scrolling now works reliably (added mouseMoved before mouseWheel)
+  - `scroll.info` now correctly reports window scroll position when no selector provided
+- **scroll --amount** - Fixed `--amount` flag not being passed through to scroll handler
 
 ## [2.5.0] - 2026-01-23
 
