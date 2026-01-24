@@ -25,7 +25,7 @@ Surf takes a different approach:
 
 **Agent-Agnostic** - Pure CLI commands over Unix socket. Works with Claude Code, GPT, Gemini, Cursor, custom agents, shell scripts - anything that can run commands.
 
-**Zero Config** - Install the extension, run commands. No MCP servers to configure, no relay processes, no subscriptions.
+**Zero Config** - Install the extension, run commands. No relay processes, no subscriptions.
 
 **Battle-Tested** - Built by reverse-engineering production browser extensions and methodically working through agent-hostile pages like Discord settings. Falls back gracefully when CDP fails.
 

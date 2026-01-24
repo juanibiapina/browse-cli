@@ -1,8 +1,14 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
 ## [Unreleased]
 
 ### Removed
+- **MCP server** - Removed Model Context Protocol support. The `surf server` command and `@modelcontextprotocol/sdk` dependency have been removed. Surf is now purely CLI-based - use the CLI directly or via Unix socket at `/tmp/surf.sock`.
 - **Workflows feature** - Removed the entire workflows system including:
   - `surf do` command for inline and file-based workflows
   - `workflow.list`, `workflow.info`, `workflow.validate` management commands
