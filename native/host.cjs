@@ -1196,7 +1196,7 @@ function processInput() {
               sendToolResponse(socket, originalId, { 
                 message: `Saved to ${savePath} (${finalDims})`,
                 path: savePath,
-                screenshotId: msg.screenshotId,  // Preserve for upload_image workflow
+                screenshotId: msg.screenshotId,
               }, null);
             } catch (e) {
               sendToolResponse(socket, originalId, null, `Failed to save: ${e.message}`);

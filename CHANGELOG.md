@@ -3,6 +3,12 @@
 ## [Unreleased]
 
 ### Removed
+- **Workflows feature** - Removed the entire workflows system including:
+  - `surf do` command for inline and file-based workflows
+  - `workflow.list`, `workflow.info`, `workflow.validate` management commands
+  - `--script` flag for running JSON workflow files
+  - Workflow files: `native/do-parser.cjs`, `native/do-executor.cjs`
+  - Workflow tests: `test/unit/do-parser.test.ts`, `test/unit/do-executor.test.ts`
 - **Deprecated command aliases** - Removed legacy command names that were blocked with migration hints. Use the new names instead:
   - `read_page` → `page.read`
   - `get_page_text` → `page.text`

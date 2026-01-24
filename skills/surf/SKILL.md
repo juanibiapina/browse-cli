@@ -302,63 +302,6 @@ surf smoke --urls "http://localhost:3000" "http://localhost:3000/about"
 surf smoke --urls "..." --screenshot /tmp/smoke
 ```
 
-## Workflows
-
-Execute multi-step browser automation as a single command with smart auto-waits:
-
-```bash
-# Inline workflow (pipe-separated)
-surf do 'go "https://example.com" | click e5 | screenshot'
-
-# Multi-step login flow
-surf do 'go "https://example.com/login" | type "user@example.com" --selector "#email" | type "pass" --selector "#password" | click --selector "button[type=submit]"'
-
-# From JSON file
-surf do --file workflow.json
-
-# Validate without executing
-surf do 'go "url" | click e5' --dry-run
-```
-
-**Why use `do`?** Instead of 6-8 separate CLI calls with LLM orchestration between each, a workflow executes deterministically. Faster, cheaper, and more reliable.
-
-**Options:**
-```bash
---file, -f <path>     # Load from JSON file
---dry-run             # Parse and validate without executing
---on-error stop|continue  # Error handling (default: stop)
---step-delay <ms>     # Delay between steps (default: 100, 0 to disable)
---no-auto-wait        # Disable automatic waits
---json                # Structured JSON output
-```
-
-**Auto-waits:** Commands automatically wait for completion:
-- Navigation (`go`, `back`, `forward`) → waits for page load
-- Clicks, key presses, form fills → waits for DOM stability
-- Tab switches → waits for tab to load
-
-**JSON file format:**
-```json
-{
-  "name": "Login Flow",
-  "steps": [
-    { "tool": "navigate", "args": { "url": "https://example.com" } },
-    { "tool": "type", "args": { "text": "user@example.com", "selector": "input[name=email]" } },
-    { "tool": "click", "args": { "selector": "button[type=submit]" } },
-    { "tool": "screenshot", "args": {} }
-  ]
-}
-```
-
-## Script Mode (Legacy)
-
-```bash
-surf --script workflow.json
-surf --script workflow.json --dry-run
-```
-
-Same JSON format as `surf do --file`. The `do` command is preferred as it also supports inline workflows.
-
 ## Error Diagnostics
 
 ```bash
@@ -381,13 +324,11 @@ surf wait.element ".missing" --auto-capture --timeout 2000
 1. **First CDP operation is slow** (~5-8s) - debugger attachment overhead, subsequent calls fast
 2. **Use refs from page.read** for reliable element targeting over CSS selectors
 3. **JS method for contenteditable** - Modern editors (ChatGPT, Claude, Notion) need `--method js`
-4. **Named tabs for workflows** - `tab.name app` then `tab.switch app`
+4. **Named tabs for multi-step tasks** - `tab.name app` then `tab.switch app`
 5. **Auto-capture for debugging** - `--auto-capture` saves diagnostics on failure
 6. **AI tools use browser session** - Must be logged into the service, no API keys needed
 7. **Grok validation** - Run `surf grok --validate` if queries fail to check UI changes
 8. **Long timeouts for thinking models** - ChatGPT o1, Grok thinking can take 60+ seconds
-9. **Use `surf do` for multi-step tasks** - Reduces token overhead and improves reliability
-10. **Dry-run workflows first** - `surf do '...' --dry-run` validates without executing
 
 ## Socket API
 
