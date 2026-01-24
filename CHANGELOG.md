@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- **page.read --all flag** - Removed dead `a.filter` fallback code; `--all` flag now correctly maps to `filter: "all"`
+
 ## [2.5.0] - 2026-01-23
 
 ### Added
