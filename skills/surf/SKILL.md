@@ -1,11 +1,11 @@
 ---
 name: surf
-description: Control Chrome browser via CLI for testing, automation, and debugging. Use when the user needs browser automation, screenshots, form filling, page inspection, network/CPU emulation, or DevTools streaming.
+description: Control Chrome browser via CLI for testing, automation, and debugging. Use when the user needs browser automation, screenshots, form filling or page inspection.
 ---
 
 # Surf Browser Automation
 
-Control Chrome browser via CLI or Unix socket.
+Control Chrome browser via CLI.
 
 ## CLI Quick Reference
 
@@ -263,11 +263,3 @@ surf wait.element ".missing" --auto-capture --timeout 2000
 3. **JS method for contenteditable** - Modern editors (Notion, etc.) need `--method js`
 4. **Named tabs for multi-step tasks** - `tab.name app` then `tab.switch app`
 5. **Auto-capture for debugging** - `--auto-capture` saves diagnostics on failure
-
-## Socket API
-
-For programmatic access:
-
-```bash
-echo '{"type":"tool_request","method":"execute_tool","params":{"tool":"tab.list","args":{}},"id":"1"}' | nc -U /tmp/surf.sock
-```
