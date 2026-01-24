@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **page.text** - Now returns clean text content without JavaScript and CSS. Changed from `textContent` to `innerText` which properly excludes script/style tag content.
+
 ### Removed
 - **AI assistant commands** - Removed all browser-based AI integration features:
   - `surf chatgpt` - ChatGPT queries via chatgpt.com
