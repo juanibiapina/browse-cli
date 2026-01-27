@@ -1231,7 +1231,7 @@ describe("CDPController", () => {
       expect(mockChrome.debugger.sendCommand).toHaveBeenCalledWith(
         { tabId },
         "Page.createIsolatedWorld",
-        { frameId: "frame-1", worldName: "surf-isolated" },
+        { frameId: "frame-1", worldName: "browse-isolated" },
       );
     });
 

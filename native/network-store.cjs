@@ -1,5 +1,5 @@
 /**
- * Network Storage Module for surf-cli
+ * Network Storage Module for browse-cli
  * 
  * Handles persistent storage of network requests with:
  * - JSONL append-only log
@@ -13,7 +13,7 @@ const crypto = require("crypto");
 const readline = require("readline");
 
 // Configuration
-const DEFAULT_BASE = "/tmp/surf";
+const DEFAULT_BASE = "/tmp/browse";
 const DEFAULT_TTL = 24 * 60 * 60 * 1000;  // 24 hours
 const DEFAULT_MAX_SIZE = 200 * 1024 * 1024; // 200MB
 const AUTO_CLEANUP_INTERVAL = 60 * 60 * 1000; // 1 hour
@@ -33,10 +33,10 @@ function setBasePath(newPath) {
 
 /**
  * Get base path for network storage
- * Priority: runtime override > SURF_NETWORK_PATH env var > default
+ * Priority: runtime override > BROWSE_NETWORK_PATH env var > default
  */
 function getBasePath() {
-  return runtimeBasePath || process.env.SURF_NETWORK_PATH || DEFAULT_BASE;
+  return runtimeBasePath || process.env.BROWSE_NETWORK_PATH || DEFAULT_BASE;
 }
 
 /**

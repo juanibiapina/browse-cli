@@ -1,5 +1,5 @@
 {
-  "name": "surf-cli",
+  "name": "@juanibiapina/browse-cli",
   "version": "2.5.0",
   "description": "CLI for AI agents to control Chrome. Zero config, agent-agnostic, battle-tested.",
   "keywords": [
@@ -12,19 +12,19 @@
     "cdp",
     "devtools"
   ],
-  "author": "Nico Bailon",
+  "author": "Juan Ibiapina",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nicobailon/surf-cli.git"
+    "url": "git+https://github.com/juanibiapina/browse-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/nicobailon/surf-cli/issues"
+    "url": "https://github.com/juanibiapina/browse-cli/issues"
   },
-  "homepage": "https://github.com/nicobailon/surf-cli#readme",
+  "homepage": "https://github.com/juanibiapina/browse-cli#readme",
   "type": "module",
   "bin": {
-    "surf": "native/cli.cjs"
+    "browse": "native/cli.cjs"
   },
   "files": [
     "native/",

@@ -12,7 +12,7 @@
  * - Verbose modes (-v, -vv)
  * - Curl export (--format curl)
  * - Raw JSON export (--format raw)
- * - Persistence to /tmp/surf/
+ * - Persistence to /tmp/browse/
  */
 
 const { execSync } = require("child_process");
@@ -88,7 +88,7 @@ tabId = tabMatch[1];
 console.log(`Using tab: ${tabId}\n`);
 
 // Clear persistence file for clean test
-const PERSISTENCE_FILE = "/tmp/surf/requests.jsonl";
+const PERSISTENCE_FILE = "/tmp/browse/requests.jsonl";
 if (fs.existsSync(PERSISTENCE_FILE)) {
   fs.unlinkSync(PERSISTENCE_FILE);
 }
@@ -284,10 +284,10 @@ test("URL list export: --format urls", () => {
 // ============================================================================
 
 console.log("\n" + "─".repeat(70));
-console.log("Persistence (/tmp/surf/)");
+console.log("Persistence (/tmp/browse/)");
 console.log("─".repeat(70));
 
-test("Persists entries to /tmp/surf/requests.jsonl", () => {
+test("Persists entries to /tmp/browse/requests.jsonl", () => {
   // Trigger verbose mode to ensure persistence (full data required)
   run(`network -v --tab-id ${tabId}`);
   sleep(1500);  // Allow time for async writes to complete
@@ -318,11 +318,11 @@ test("Persisted entries have full data (headers, body)", () => {
   assert(entry.responseHeaders, "Should have responseHeaders");
 });
 
-test("Custom path via SURF_NETWORK_PATH env", () => {
+test("Custom path via BROWSE_NETWORK_PATH env", () => {
   // This tests that the env var is respected (we don't actually change it in test)
   const networkStore = require("../native/network-store.cjs");
   const defaultPath = networkStore.getBasePath();
-  assert(defaultPath === "/tmp/surf" || defaultPath.includes("surf"), 
+  assert(defaultPath === "/tmp/browse" || defaultPath.includes("browse"), 
     "Should have default path");
 });
 

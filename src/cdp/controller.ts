@@ -931,7 +931,7 @@ export class CDPController {
     try {
       const contextResult = await this.send(tabId, "Page.createIsolatedWorld", {
         frameId,
-        worldName: "surf-isolated",
+        worldName: "browse-isolated",
       });
       const wrappedExpression = `JSON.stringify((function() { ${expression} })())`;
       const result = await this.send(tabId, "Runtime.evaluate", {

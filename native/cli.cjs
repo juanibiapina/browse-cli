@@ -8,7 +8,7 @@ const { loadConfig, getConfigPath, createStarterConfig } = require("./config.cjs
 const networkFormatters = require("./formatters/network.cjs");
 const networkStore = require("./network-store.cjs");
 
-const SOCKET_PATH = "/tmp/surf.sock";
+const SOCKET_PATH = "/tmp/browse.sock";
 
 // Cross-platform image resize (macOS: sips, Linux: ImageMagick)
 function resizeImage(filePath, maxSize) {
@@ -886,21 +886,21 @@ Scroll and capture:
     content: `Keep agent work separate from your browsing.
 
 Create a dedicated window:
-  surf window.new "https://example.com"
+  browse window.new "https://example.com"
   # Returns: Window 123 (tab 456)
   # Use --window-id 123 to target this window
 
 All commands in that window:
-  surf navigate "https://other.com" --window-id 123
-  surf read --window-id 123
-  surf click e5 --window-id 123
-  surf screenshot --output /tmp/shot.png --window-id 123
+  browse navigate "https://other.com" --window-id 123
+  browse read --window-id 123
+  browse click e5 --window-id 123
+  browse screenshot --output /tmp/shot.png --window-id 123
 
 Manage windows:
-  surf window.list              # List all windows
-  surf window.list --tabs       # Include tab details  
-  surf window.focus 123         # Bring window to front
-  surf window.close 123         # Close when done
+  browse window.list              # List all windows
+  browse window.list --tabs       # Include tab details  
+  browse window.focus 123         # Bring window to front
+  browse window.close 123         # Close when done
 
 Tips:
   - Agent commands won't affect your active browser window
@@ -1058,9 +1058,9 @@ const SEE_ALSO = {
 };
 
 const showBasicHelp = () => {
-  console.log(`surf v${VERSION} - Browser automation CLI
+  console.log(`browse v${VERSION} - Browser automation CLI
 
-Usage: surf <command> [args] [options]
+Usage: browse <command> [args] [options]
 
 Common Commands:
   navigate <url>     Go to URL (alias: go)
@@ -1074,28 +1074,28 @@ Common Commands:
   wait <seconds>     Wait N seconds
 
 Quick Examples:
-  surf go "https://example.com"
-  surf read
-  surf click e5
-  surf type "hello" --submit
-  surf locate.role button --name "Submit" --action click
-  surf read --depth 3 --compact
-  surf emulate.device "iPhone 14"
-  surf window.new "https://example.com" && surf --window-id 123 go "https://other.com"
+  browse go "https://example.com"
+  browse read
+  browse click e5
+  browse type "hello" --submit
+  browse locate.role button --name "Submit" --action click
+  browse read --depth 3 --compact
+  browse emulate.device "iPhone 14"
+  browse window.new "https://example.com" && browse --window-id 123 go "https://other.com"
 
 More Help:
-  surf --help-full           All commands
-  surf --help-topic <topic>  Topic guide (refs, semantic, frames, devices...)
-  surf <command> --help      Command details
-  surf --find <query>        Search for commands
-  surf --about <topic>       Learn about a topic
+  browse --help-full           All commands
+  browse --help-topic <topic>  Topic guide (refs, semantic, frames, devices...)
+  browse <command> --help      Command details
+  browse --find <query>        Search for commands
+  browse --about <topic>       Learn about a topic
 `);
 };
 
 const showFullHelp = () => {
-  console.log(`surf v${VERSION} - Browser automation CLI
+  console.log(`browse v${VERSION} - Browser automation CLI
 
-Usage: surf <command> [args] [options]
+Usage: browse <command> [args] [options]
 
 `);
   for (const [groupName, group] of Object.entries(TOOLS)) {
@@ -1153,7 +1153,7 @@ const showGroupHelp = (groupName) => {
     if (info.examples?.length) {
       console.log("      Examples:");
       for (const ex of info.examples) {
-        console.log(`        surf ${ex.cmd}`);
+        console.log(`        browse ${ex.cmd}`);
       }
     }
     console.log();
@@ -1171,7 +1171,7 @@ const showToolHelp = (toolName) => {
       }
       const argStr = info.args?.length ? `<${info.args.join("> <")}>` : "";
       console.log(`\n${toolName} - ${info.desc}\n`);
-      console.log(`Usage: surf ${toolName} ${argStr}\n`);
+      console.log(`Usage: browse ${toolName} ${argStr}\n`);
       if (info.args?.length) {
         console.log("Arguments:");
         for (const arg of info.args) {
@@ -1189,7 +1189,7 @@ const showToolHelp = (toolName) => {
       if (info.examples?.length) {
         console.log("Examples:");
         for (const ex of info.examples) {
-          console.log(`  surf ${ex.cmd.padEnd(40)} ${ex.desc}`);
+          console.log(`  browse ${ex.cmd.padEnd(40)} ${ex.desc}`);
         }
         console.log();
       }
@@ -1295,7 +1295,7 @@ if (args[0] === "--help-topic" && args[1]) {
 }
 
 if (args[0] === "--version" || args[0] === "-v") {
-  console.log(`surf version ${VERSION}`);
+  console.log(`browse version ${VERSION}`);
   process.exit(0);
 }
 
@@ -1328,7 +1328,7 @@ if (args[0] === "install") {
   
   if (installArgs.length === 0 || installArgs[0] === "--help" || installArgs[0] === "-h") {
     console.log(`
-Usage: surf install <extension-id> [options]
+Usage: browse install <extension-id> [options]
 
 Install native messaging host for browser communication.
 
@@ -1342,9 +1342,9 @@ Options:
                   Multiple: --browser chrome,brave
 
 Examples:
-  surf install hnfbepgmaoklhekckbpjnleifhahkcpl
-  surf install hnfbepgmaoklhekckbpjnleifhahkcpl --browser brave
-  surf install hnfbepgmaoklhekckbpjnleifhahkcpl --browser all
+  browse install hnfbepgmaoklhekckbpjnleifhahkcpl
+  browse install hnfbepgmaoklhekckbpjnleifhahkcpl --browser brave
+  browse install hnfbepgmaoklhekckbpjnleifhahkcpl --browser all
 `);
     process.exit(0);
   }
@@ -1362,7 +1362,7 @@ if (args[0] === "uninstall") {
   
   if (uninstallArgs.includes("--help") || uninstallArgs.includes("-h")) {
     console.log(`
-Usage: surf uninstall [options]
+Usage: browse uninstall [options]
 
 Remove native messaging host configuration.
 
@@ -1372,9 +1372,9 @@ Options:
   -a, --all       Uninstall from all browsers and remove wrapper
 
 Examples:
-  surf uninstall
-  surf uninstall --browser brave
-  surf uninstall --all
+  browse uninstall
+  browse uninstall --browser brave
+  browse uninstall --all
 `);
     process.exit(0);
   }
@@ -1441,7 +1441,7 @@ if (args[0] === "config") {
     console.log(JSON.stringify(config, null, 2));
   } else {
     console.log("No config found");
-    console.log("Create one with: surf config --init");
+    console.log("Create one with: browse config --init");
   }
   process.exit(0);
 }
@@ -1503,11 +1503,11 @@ tool = ALIASES[tool] || tool;
 
 // Auto-save screenshots to temp file when no --output specified
 // This ensures agents always get a usable file path, not just an in-memory ID
-// Can be disabled with --no-save flag or autoSaveScreenshots: false in surf.json
+// Can be disabled with --no-save flag or autoSaveScreenshots: false in browse.json
 const config = loadConfig();
 const autoSaveEnabled = config.autoSaveScreenshots !== false && !options["no-save"];
 if (tool === "screenshot" && !options.output && !options.savePath && autoSaveEnabled) {
-  options.savePath = `/tmp/surf-snap-${Date.now()}.png`;
+  options.savePath = `/tmp/browse-snap-${Date.now()}.png`;
 }
 
 if (tool === "smoke") {
@@ -1617,7 +1617,7 @@ if (tool === "select" && positional.length > 2) {
 } else if (tool === "select" && positional.length === 2) {
   // Only selector provided, no values
   console.error("Error: select requires at least one value");
-  console.error("Usage: surf select <selector> <value...>");
+  console.error("Usage: browse select <selector> <value...>");
   process.exit(1);
 }
 
@@ -1862,7 +1862,7 @@ const sendRequest = (toolName, toolArgs = {}) => {
 
 const performAutoCapture = async () => {
   const timestamp = Date.now();
-  const screenshotPath = `/tmp/surf-error-${timestamp}.png`;
+  const screenshotPath = `/tmp/browse-error-${timestamp}.png`;
 
   try {
     const [screenshotResp, consoleResp] = await Promise.all([
@@ -2018,7 +2018,7 @@ async function handleResponse(response) {
     if (Array.isArray(tabs)) {
       if (tabs.length === 0) {
         if (globalOpts.windowId) {
-          console.log(`No tabs in window ${globalOpts.windowId}. Window may not exist - use 'surf window.list' to verify.`);
+          console.log(`No tabs in window ${globalOpts.windowId}. Window may not exist - use 'browse window.list' to verify.`);
         } else {
           console.log("No tabs found.");
         }
@@ -2053,8 +2053,8 @@ async function handleResponse(response) {
     for (const d of devices) {
       console.log(`  ${d}`);
     }
-    console.log("\nUsage: surf emulate.device \"<device name>\"");
-    console.log('Reset:  surf emulate.device "reset"');
+    console.log("\nUsage: browse emulate.device \"<device name>\"");
+    console.log('Reset:  browse emulate.device "reset"');
   } else if (tool === "js") {
     if (data?.result !== undefined) {
       const val = data.result.value ?? data.result;
@@ -2144,7 +2144,7 @@ async function handleResponse(response) {
     }
   } else if (tool === "window.list" && data?.windows) {
     if (data.windows.length === 0) {
-      console.log("No windows. Use 'surf window.new' to create one.");
+      console.log("No windows. Use 'browse window.new' to create one.");
     } else {
       for (const w of data.windows) {
         const focused = w.focused ? " [focused]" : "";

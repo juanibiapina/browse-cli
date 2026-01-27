@@ -2226,7 +2226,7 @@ export async function handleMessage(
       } catch (err) {
         return { 
           auth: null, 
-          hint: "Native host not connected. Make sure surf native host is installed." 
+          hint: "Native host not connected. Make sure browse native host is installed." 
         };
       }
     }
@@ -2744,7 +2744,7 @@ initNativeMessaging(async (msg) => {
     try {
       await chrome.tabs.get(tabId);
     } catch {
-      throw new Error(`Invalid tab ID: ${tabId}. Use 'surf tab.list' to see available tabs.`);
+      throw new Error(`Invalid tab ID: ${tabId}. Use 'browse tab.list' to see available tabs.`);
     }
   } else if (!tabId && needsTab) {
     let tabs: chrome.tabs.Tab[];
@@ -2793,7 +2793,7 @@ initNativeMessaging(async (msg) => {
         tab = tabs.find(t => !t.url?.startsWith('chrome-extension://') && !t.url?.startsWith('chrome://'));
       }
       if (!tab?.id) {
-        throw new Error("No active tab found. Use 'surf tab.new <url>' to create one, or 'surf tab.list' to see available tabs.");
+        throw new Error("No active tab found. Use 'browse tab.new <url>' to create one, or 'browse tab.list' to see available tabs.");
       }
     }
     tabId = tab.id;

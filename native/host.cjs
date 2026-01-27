@@ -7,7 +7,7 @@ const https = require("https");
 const { execSync } = require("child_process");
 const { mapToolToMessage, mapComputerAction, formatToolContent } = require("./host-helpers.cjs");
 
-const SOCKET_PATH = "/tmp/surf.sock";
+const SOCKET_PATH = "/tmp/browse.sock";
 
 // Cross-platform image resize (macOS: sips, Linux: ImageMagick)
 function resizeImage(filePath, maxSize) {
@@ -44,7 +44,7 @@ function resizeImage(filePath, maxSize) {
   }
 }
 
-const LOG_FILE = "/tmp/surf-host.log";
+const LOG_FILE = "/tmp/browse-host.log";
 const AUTH_FILE = path.join(os.homedir(), ".pi", "agent", "auth.json");
 
 const DEFAULT_RETRY_OPTIONS = {
@@ -679,7 +679,7 @@ process.stdin.on("end", () => {
     try {
       socket.write(JSON.stringify({ 
         type: "extension_disconnected",
-        message: "Surf extension was reloaded. Restart your command."
+        message: "Browse extension was reloaded. Restart your command."
       }) + "\n");
       socket.end();
     } catch (e) {

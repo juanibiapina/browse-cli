@@ -4,7 +4,7 @@ const path = require("path");
 const os = require("os");
 const { execSync } = require("child_process");
 
-const HOST_NAME = "surf.browser.host";
+const HOST_NAME = "browse.browser.host";
 
 const BROWSERS = {
   chrome: {
@@ -44,11 +44,11 @@ function getWrapperDir() {
   const home = os.homedir();
   switch (platform) {
     case "darwin":
-      return path.join(home, "Library/Application Support/surf-cli");
+      return path.join(home, "Library/Application Support/browse-cli");
     case "linux":
-      return path.join(home, ".local/share/surf-cli");
+      return path.join(home, ".local/share/browse-cli");
     case "win32":
-      return path.join(process.env.LOCALAPPDATA || path.join(home, "AppData/Local"), "surf-cli");
+      return path.join(process.env.LOCALAPPDATA || path.join(home, "AppData/Local"), "browse-cli");
     default:
       return null;
   }
@@ -131,7 +131,7 @@ function parseArgs() {
 
 function printHelp() {
   console.log(`
-Surf CLI Native Host Uninstaller
+Browse CLI Native Host Uninstaller
 
 Usage: uninstall-native-host.cjs [options]
 

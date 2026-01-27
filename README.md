@@ -1,27 +1,23 @@
-<p>
-  <img src="surf-banner.png" alt="surf" width="1100">
-</p>
-
-# Surf
+# Browse
 
 **The CLI for AI agents to control Chrome. Zero config, agent-agnostic, battle-tested.**
 
-[![npm version](https://img.shields.io/npm/v/surf-cli?style=for-the-badge)](https://www.npmjs.com/package/surf-cli)
+[![npm version](https://img.shields.io/npm/v/@juanibiapina/browse-cli?style=for-the-badge)](https://www.npmjs.com/package/@juanibiapina/browse-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-blue?style=for-the-badge)]()
 
 ```bash
-surf go "https://example.com"
-surf read
-surf click e5
-surf snap
+browse go "https://example.com"
+browse read
+browse click e5
+browse snap
 ```
 
-## Why Surf
+## Why Browse
 
 Browser automation for AI agents is harder than it looks. Most tools require complex setup, tie you to specific AI providers, or break on real-world pages.
 
-Surf takes a different approach:
+Browse takes a different approach:
 
 **Agent-Agnostic** - Pure CLI commands over Unix socket. Works with Claude Code, GPT, Gemini, Cursor, custom agents, shell scripts - anything that can run commands.
 
@@ -31,20 +27,7 @@ Surf takes a different approach:
 
 **Smart Defaults** - Screenshots auto-resize to 1200px (saves tokens). Actions auto-capture screenshots (saves round-trips). Errors on restricted pages warn instead of fail.
 
-**AI Without API Keys** - Query ChatGPT, Gemini, Perplexity, and Grok using your existing browser logins. No API keys needed.
-
 **Network Capture** - Automatically logs all network requests while active. Filter, search, and replay API calls without manually setting up request interception.
-
-## Comparison
-
-| Feature | Surf | Manus | Claude Extension | DevTools MCP | dev-browser |
-|---------|------|-------|------------------|--------------|-------------|
-| Agent-agnostic | Yes | No (Manus only) | No (Claude only) | Partial | No (Claude skill) |
-| Zero config | Yes | No (subscription) | No (subscription) | No (MCP setup) | No (relay server) |
-| Local-only | Yes | No (cloud) | Partial | Yes | Partial |
-| CLI interface | Yes | No | No | No | No |
-| Free | Yes | No | No | Yes | Yes |
-| AI via browser cookies | Yes | No | No | No | No |
 
 ## Installation
 
@@ -52,27 +35,27 @@ Surf takes a different approach:
 
 ```bash
 # 1. Install globally
-npm install -g surf-cli
+npm install -g @juanibiapina/browse-cli
 
 # 2. Load extension in Chrome
 #    - Open chrome://extensions
 #    - Enable "Developer mode"
 #    - Click "Load unpacked"
-#    - Paste the path from: surf extension-path
+#    - Paste the path from: browse extension-path
 
 # 3. Install native host (copy extension ID from chrome://extensions)
-surf install <extension-id>
+browse install <extension-id>
 
 # 4. Restart Chrome and test
-surf tab.list
+browse tab.list
 ```
 
 ### Multi-Browser Support
 
 ```bash
-surf install <extension-id>                    # Chrome (default)
-surf install <extension-id> --browser brave    # Brave
-surf install <extension-id> --browser all      # All supported browsers
+browse install <extension-id>                    # Chrome (default)
+browse install <extension-id> --browser brave    # Brave
+browse install <extension-id> --browser all      # All supported browsers
 ```
 
 Supported: `chrome`, `chromium`, `brave`, `edge`, `arc`
@@ -80,15 +63,15 @@ Supported: `chrome`, `chromium`, `brave`, `edge`, `arc`
 ### Uninstall
 
 ```bash
-surf uninstall                  # Chrome only
-surf uninstall --all            # All browsers + wrapper files
+browse uninstall                  # Chrome only
+browse uninstall --all            # All browsers + wrapper files
 ```
 
 ### Development Setup
 
 ```bash
-git clone https://github.com/nicobailon/surf-cli.git
-cd surf-cli
+git clone https://github.com/juanibiapina/browse-cli.git
+cd browse-cli
 npm install
 npm run build
 # Then load dist/ as unpacked extension
@@ -97,37 +80,37 @@ npm run build
 ## Usage
 
 ```bash
-surf <command> [args] [options]
-surf --help                    # Basic help
-surf --help-full               # All 50+ commands
-surf <command> --help          # Command details
-surf --find <query>            # Search commands
+browse <command> [args] [options]
+browse --help                    # Basic help
+browse --help-full               # All 50+ commands
+browse <command> --help          # Command details
+browse --find <query>            # Search commands
 ```
 
 ### Navigation
 
 ```bash
-surf go "https://example.com"
-surf back
-surf forward
-surf tab.reload --hard
+browse go "https://example.com"
+browse back
+browse forward
+browse tab.reload --hard
 ```
 
 ### Reading Pages
 
 ```bash
-surf read                           # Accessibility tree + visible text content
-surf read --no-text                 # Accessibility tree only (no text)
-surf read --depth 3                 # Limit tree depth (smaller output)
-surf read --compact                 # Remove empty structural elements
-surf read --depth 3 --compact       # Both (60% smaller output)
-surf page.text                      # Raw text content only
-surf page.state                     # Modals, loading state, scroll position
+browse read                           # Accessibility tree + visible text content
+browse read --no-text                 # Accessibility tree only (no text)
+browse read --depth 3                 # Limit tree depth (smaller output)
+browse read --compact                 # Remove empty structural elements
+browse read --depth 3 --compact       # Both (60% smaller output)
+browse page.text                      # Raw text content only
+browse page.state                     # Modals, loading state, scroll position
 ```
 
 Element refs (`e1`, `e2`, `e3`...) are stable identifiers from the accessibility tree - semantic, predictable, and resilient to DOM changes.
 
-**Note:** `surf read` returns only elements **visible in the current viewport** to minimize output size for LLMs. Refs remain valid for off-screen elements - you can still `click e5` even if `e5` isn't in the current output. Scroll to see more elements, or use `scroll.to --ref e5` to bring an element into view.
+**Note:** `browse read` returns only elements **visible in the current viewport** to minimize output size for LLMs. Refs remain valid for off-screen elements - you can still `click e5` even if `e5` isn't in the current output. Scroll to see more elements, or use `scroll.to --ref e5` to bring an element into view.
 
 ### Semantic Locators
 
@@ -135,17 +118,17 @@ Find and interact with elements by role, text, or label - no refs or selectors n
 
 ```bash
 # By ARIA role
-surf locate.role button --name "Submit"           # Find button
-surf locate.role button --name "Submit" --action click  # Find and click
-surf locate.role textbox --action fill --value "hello"  # Find and fill
-surf locate.role link --all                       # List all links
+browse locate.role button --name "Submit"           # Find button
+browse locate.role button --name "Submit" --action click  # Find and click
+browse locate.role textbox --action fill --value "hello"  # Find and fill
+browse locate.role link --all                       # List all links
 
 # By text content  
-surf locate.text "Sign In" --action click         # Click element with text
-surf locate.text "Accept" --exact                 # Exact match only
+browse locate.text "Sign In" --action click         # Click element with text
+browse locate.text "Accept" --exact                 # Exact match only
 
 # By form label
-surf locate.label "Email" --action fill --value "test@example.com"
+browse locate.label "Email" --action fill --value "test@example.com"
 ```
 
 ### Iframe Support
@@ -153,31 +136,31 @@ surf locate.label "Email" --action fill --value "test@example.com"
 Work with content inside iframes:
 
 ```bash
-surf frame.list                     # List all frames
-surf frame.switch --index 0         # Switch to first iframe
-surf frame.switch --name "payment"  # Switch by frame name
-surf frame.switch --selector "#checkout-frame"  # Switch by CSS selector
+browse frame.list                     # List all frames
+browse frame.switch --index 0         # Switch to first iframe
+browse frame.switch --name "payment"  # Switch by frame name
+browse frame.switch --selector "#checkout-frame"  # Switch by CSS selector
 
 # Now all commands target the iframe
-surf read                           # Read iframe content
-surf click e5                       # Click in iframe
-surf locate.role button --action click
+browse read                           # Read iframe content
+browse click e5                       # Click in iframe
+browse locate.role button --action click
 
-surf frame.main                     # Return to main page
+browse frame.main                     # Return to main page
 ```
 
 ### Interaction
 
 ```bash
-surf click e5                       # Click by element ref
-surf click --selector ".btn"        # Click by CSS selector
-surf click 100 200                  # Click by coordinates
-surf type "hello" --submit          # Type and press Enter
-surf type "email@example.com" --ref e12  # Type into specific element
-surf key Escape                     # Press key
-surf scroll down                    # Scroll down
-surf scroll down --amount 5         # Scroll down more
-surf scroll.bottom                  # Scroll to bottom
+browse click e5                       # Click by element ref
+browse click --selector ".btn"        # Click by CSS selector
+browse click 100 200                  # Click by coordinates
+browse type "hello" --submit          # Type and press Enter
+browse type "email@example.com" --ref e12  # Type into specific element
+browse key Escape                     # Press key
+browse scroll down                    # Scroll down
+browse scroll down --amount 5         # Scroll down more
+browse scroll.bottom                  # Scroll to bottom
 ```
 
 ### Forms
@@ -185,11 +168,11 @@ surf scroll.bottom                  # Scroll to bottom
 Select options in dropdown menus:
 
 ```bash
-surf select e5 "US"                         # Select by value
-surf select "#country" "US"                 # Select by CSS selector
-surf select e5 "opt1" "opt2"                # Multi-select
-surf select e5 --by label "United States"   # Select by visible text
-surf select e5 --by index 0                 # Select first option
+browse select e5 "US"                         # Select by value
+browse select "#country" "US"                 # Select by CSS selector
+browse select e5 "opt1" "opt2"                # Multi-select
+browse select e5 --by label "United States"   # Select by visible text
+browse select e5 --by index 0                 # Select first option
 ```
 
 ### Element Inspection
@@ -197,8 +180,8 @@ surf select e5 --by index 0                 # Select first option
 Get computed styles from elements:
 
 ```bash
-surf element.styles e5              # Get styles by ref
-surf element.styles ".header"       # Get styles by CSS selector (can return multiple)
+browse element.styles e5              # Get styles by ref
+browse element.styles ".header"       # Get styles by CSS selector (can return multiple)
 ```
 
 Returns font, color, background, border, padding, and bounding box for design debugging.
@@ -208,29 +191,29 @@ Returns font, color, background, border, padding, and bounding box for design de
 Screenshots auto-save to `/tmp` by default (optimized for AI agents):
 
 ```bash
-surf screenshot                             # Auto-saves to /tmp/surf-snap-*.png
-surf screenshot --output /tmp/shot.png      # Save to specific path
-surf screenshot --full --output /tmp/hd.png # Full resolution (skip resize)
-surf screenshot --annotate                  # With element labels
-surf screenshot --fullpage                  # Entire page
-surf screenshot --no-save                   # Return base64 + ID only (no file)
-surf snap                                   # Alias for screenshot
+browse screenshot                             # Auto-saves to /tmp/browse-snap-*.png
+browse screenshot --output /tmp/shot.png      # Save to specific path
+browse screenshot --full --output /tmp/hd.png # Full resolution (skip resize)
+browse screenshot --annotate                  # With element labels
+browse screenshot --fullpage                  # Entire page
+browse screenshot --no-save                   # Return base64 + ID only (no file)
+browse snap                                   # Alias for screenshot
 ```
 
-To disable auto-save globally, set `autoSaveScreenshots: false` in `surf.json`.
+To disable auto-save globally, set `autoSaveScreenshots: false` in `browse.json`.
 
 Actions like `click`, `type`, and `scroll` automatically capture a screenshot after execution - no extra command needed.
 
 ### Tabs
 
 ```bash
-surf tab.list
-surf tab.new "https://example.com"
-surf tab.switch 123
-surf tab.close 123
-surf tab.name "dashboard"           # Name current tab
-surf tab.switch "dashboard"         # Switch by name
-surf tab.group --name "Work" --color blue
+browse tab.list
+browse tab.new "https://example.com"
+browse tab.switch 123
+browse tab.close 123
+browse tab.name "dashboard"           # Name current tab
+browse tab.switch "dashboard"         # Switch by name
+browse tab.group --name "Work" --color blue
 ```
 
 ### Window Isolation
@@ -239,19 +222,19 @@ Keep using your browser while the agent works in a separate window:
 
 ```bash
 # Create isolated window for agent
-surf window.new "https://example.com"
+browse window.new "https://example.com"
 # Returns: Window 123456 (tab 789)
 
 # All subsequent commands target that window
-surf click e5 --window-id 123456
-surf read --window-id 123456
-surf tab.new "https://other.com" --window-id 123456
+browse click e5 --window-id 123456
+browse read --window-id 123456
+browse tab.new "https://other.com" --window-id 123456
 
 # Or manage windows directly
-surf window.list                    # List all windows
-surf window.list --tabs             # Include tab details
-surf window.focus 123456            # Bring window to front
-surf window.close 123456            # Close window
+browse window.list                    # List all windows
+browse window.list --tabs             # Include tab details
+browse window.focus 123456            # Bring window to front
+browse window.close 123456            # Close window
 ```
 
 ### Device Emulation
@@ -259,18 +242,18 @@ surf window.close 123456            # Close window
 Test responsive designs and mobile layouts:
 
 ```bash
-surf emulate.device --list                    # Show available devices
-surf emulate.device "iPhone 14"               # Emulate iPhone 14
-surf emulate.device "Pixel 7"                 # Emulate Pixel 7
-surf emulate.device reset                     # Return to desktop
+browse emulate.device --list                    # Show available devices
+browse emulate.device "iPhone 14"               # Emulate iPhone 14
+browse emulate.device "Pixel 7"                 # Emulate Pixel 7
+browse emulate.device reset                     # Return to desktop
 
 # Custom viewport
-surf emulate.viewport --width 375 --height 812
-surf emulate.viewport --width 1920 --height 1080 --scale 2
+browse emulate.viewport --width 375 --height 812
+browse emulate.viewport --width 1920 --height 1080 --scale 2
 
 # Touch emulation
-surf emulate.touch                            # Enable touch
-surf emulate.touch --enabled false            # Disable touch
+browse emulate.touch                            # Enable touch
+browse emulate.touch --enabled false            # Disable touch
 ```
 
 Available devices: iPhone 12-14 (Pro/Max), iPhone SE, iPad (Pro/Mini), Pixel 5-7 (Pro), Galaxy S21-S23, Galaxy Tab S7, Nest Hub (Max).
@@ -280,61 +263,61 @@ Available devices: iPhone 12-14 (Pro/Max), iPhone SE, iPad (Pro/Mini), Pixel 5-7
 Capture performance metrics and traces:
 
 ```bash
-surf perf.metrics                   # Current performance metrics
-surf perf.start                     # Start tracing
-surf perf.stop                      # Stop and get trace data
+browse perf.metrics                   # Current performance metrics
+browse perf.start                     # Start tracing
+browse perf.stop                      # Stop and get trace data
 ```
 
 ### Waiting
 
 ```bash
-surf wait 2                         # Wait 2 seconds
-surf wait.element ".loaded"         # Wait for element
-surf wait.network                   # Wait for network idle
-surf wait.url "/dashboard"          # Wait for URL pattern
+browse wait 2                         # Wait 2 seconds
+browse wait.element ".loaded"         # Wait for element
+browse wait.network                   # Wait for network idle
+browse wait.url "/dashboard"          # Wait for URL pattern
 ```
 
 ### Other
 
 ```bash
-surf js "return document.title"     # Execute JavaScript
-surf search "login"                 # Find text in page
-surf cookie.list                    # List cookies
-surf zoom 1.5                       # Set zoom to 150%
-surf console                        # Read console messages
-surf network                        # Read network requests
+browse js "return document.title"     # Execute JavaScript
+browse search "login"                 # Find text in page
+browse cookie.list                    # List cookies
+browse zoom 1.5                       # Set zoom to 150%
+browse console                        # Read console messages
+browse network                        # Read network requests
 ```
 
 ### Network Capture
 
-Surf automatically captures all network requests while active. No explicit start needed.
+Browse automatically captures all network requests while active. No explicit start needed.
 
 ```bash
 # Overview (token-efficient for LLMs)
-surf network                          # Recent requests, compact table
-surf network --urls                   # Just URLs (minimal output)
-surf network --format curl            # As curl commands
+browse network                          # Recent requests, compact table
+browse network --urls                   # Just URLs (minimal output)
+browse network --format curl            # As curl commands
 
 # Filtering
-surf network --origin api.github.com  # Filter by origin/domain
-surf network --method POST            # Only POST requests
-surf network --type json              # Only JSON responses
-surf network --status 4xx,5xx         # Only errors
-surf network --since 5m               # Last 5 minutes
-surf network --exclude-static         # Skip images/fonts/css/js
+browse network --origin api.github.com  # Filter by origin/domain
+browse network --method POST            # Only POST requests
+browse network --type json              # Only JSON responses
+browse network --status 4xx,5xx         # Only errors
+browse network --since 5m               # Last 5 minutes
+browse network --exclude-static         # Skip images/fonts/css/js
 
 # Drill down
-surf network.get r_001                # Full request/response details
-surf network.body r_001               # Response body (for piping to jq)
-surf network.curl r_001               # Generate curl command
-surf network.origins                  # List captured domains
+browse network.get r_001                # Full request/response details
+browse network.body r_001               # Response body (for piping to jq)
+browse network.curl r_001               # Generate curl command
+browse network.origins                  # List captured domains
 
 # Management
-surf network.clear                    # Clear captured data
-surf network.stats                    # Capture statistics
+browse network.clear                    # Clear captured data
+browse network.stats                    # Capture statistics
 ```
 
-Storage location: `/tmp/surf/` (override with `--network-path` or `SURF_NETWORK_PATH` env).
+Storage location: `/tmp/browse/` (override with `--network-path` or `BROWSE_NETWORK_PATH` env).
 Auto-cleanup: 24 hours TTL, 200MB max.
 
 ## Global Options
@@ -346,15 +329,15 @@ Auto-cleanup: 24 hours TTL, 200MB max.
 --soft-fail        # Warn instead of error (exit 0) on restricted pages
 --no-screenshot    # Skip auto-screenshot after actions
 --full             # Full resolution screenshots (skip resize)
---network-path <path>  # Custom path for network logs (default: /tmp/surf, or SURF_NETWORK_PATH env)
+--network-path <path>  # Custom path for network logs (default: /tmp/browse, or BROWSE_NETWORK_PATH env)
 ```
 
 ## Socket API
 
-For programmatic integration, send JSON to `/tmp/surf.sock`:
+For programmatic integration, send JSON to `/tmp/browse.sock`:
 
 ```bash
-echo '{"type":"tool_request","method":"execute_tool","params":{"tool":"tab.list","args":{}},"id":"1"}' | nc -U /tmp/surf.sock
+echo '{"type":"tool_request","method":"execute_tool","params":{"tool":"tab.list","args":{}},"id":"1"}' | nc -U /tmp/browse.sock
 ```
 
 ### Protocol Reference
@@ -428,10 +411,10 @@ echo '{"type":"tool_request","method":"execute_tool","params":{"tool":"tab.list"
 ## How It Works
 
 ```
-CLI (surf) → Unix Socket → Native Host → Chrome Extension → CDP/Scripting API
+CLI (browse) -> Unix Socket -> Native Host -> Chrome Extension -> CDP/Scripting API
 ```
 
-Surf uses Chrome DevTools Protocol for most operations, with automatic fallback to `chrome.scripting` API when CDP is unavailable (restricted pages, certain contexts). Screenshots fall back to `captureVisibleTab` when CDP capture fails.
+Browse uses Chrome DevTools Protocol for most operations, with automatic fallback to `chrome.scripting` API when CDP is unavailable (restricted pages, certain contexts). Screenshots fall back to `captureVisibleTab` when CDP capture fails.
 
 ## Limitations
 
@@ -441,7 +424,7 @@ Surf uses Chrome DevTools Protocol for most operations, with automatic fallback 
 
 ## Linux Support (Experimental)
 
-Surf should work on Linux with Chromium. Not yet tested in production.
+Browse should work on Linux with Chromium. Not yet tested in production.
 
 ```bash
 # Install dependencies
@@ -450,9 +433,9 @@ sudo apt install chromium-browser nodejs npm imagemagick
 # For headless server: add Xvfb + VNC
 sudo apt install xvfb tigervnc-standalone-server
 
-# Install Surf and native host
-npm install -g surf-cli
-surf install <extension-id> --browser chromium
+# Install Browse and native host
+npm install -g @juanibiapina/browse-cli
+browse install <extension-id> --browser chromium
 ```
 
 **Notes:**
@@ -462,14 +445,14 @@ surf install <extension-id> --browser chromium
 
 ## AI Agent Integration
 
-Surf includes a skill file for AI coding agents like [Pi](https://github.com/badlogic/pi-mono):
+Browse includes a skill file for AI coding agents like [Pi](https://github.com/badlogic/pi-mono):
 
 ```bash
 # Symlink for auto-updates
-ln -s "$(pwd)/skills/surf" ~/.pi/agent/skills/surf
+ln -s "$(pwd)/skills/browse" ~/.pi/agent/skills/browse
 
 # Or copy
-cp -r skills/surf ~/.pi/agent/skills/
+cp -r skills/browse ~/.pi/agent/skills/
 ```
 
 See [`skills/README.md`](skills/README.md) for details.
@@ -484,6 +467,10 @@ npm run build     # Production build
 After changes:
 - **Extension** (`src/`): Reload at `chrome://extensions`
 - **Host** (`native/`): Restart `node native/host.cjs`
+
+## Acknowledgments
+
+Browse is a fork of [surf-cli](https://github.com/nicobailon/surf-cli) by Nico Bailon. This fork is independently maintained and not affiliated with or endorsed by the original project.
 
 ## License
 

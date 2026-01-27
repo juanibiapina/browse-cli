@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Surf",
+  "name": "Browse",
   "version": "0.1.0",
-  "description": "Browser automation CLI for AI agents",
+  "description": "Browser automation CLI for AI agents (fork of Surf)",
   "options_page": "options/options.html",
   "icons": {
     "16": "icons/icon-16.png",
@@ -10,7 +10,7 @@
     "128": "icons/icon-128.png"
   },
   "action": {
-    "default_title": "Surf CLI",
+    "default_title": "Browse CLI",
     "default_icon": {
       "16": "icons/icon-16.png",
       "48": "icons/icon-48.png",

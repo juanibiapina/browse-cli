@@ -1,4 +1,4 @@
-# surf-cli Development Guide
+# browse-cli Development Guide
 
 ## Dev Extension Setup
 
@@ -79,7 +79,7 @@ node native/cli.cjs tab.list    # Use local CLI
 ## Debug
 
 - Extension logs: chrome://extensions -> Service Worker -> Console
-- Host logs: `/tmp/surf-host.log`
+- Host logs: `/tmp/browse-host.log`
 - CLI raw output: `--json` flag
 
 ## Gotchas

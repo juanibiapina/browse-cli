@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Forked and renamed** - Project forked from [surf-cli](https://github.com/nicobailon/surf-cli) by Nico Bailon and renamed to `browse-cli`. The following changes were made:
+  - npm package: `surf-cli` -> `@juanibiapina/browse-cli`
+  - CLI command: `surf` -> `browse`
+  - Extension name: `Surf` -> `Browse`
+  - Socket path: `/tmp/surf.sock` -> `/tmp/browse.sock`
+  - Network logs: `/tmp/surf/` -> `/tmp/browse/`
+  - Config file: `surf.json` -> `browse.json`
+  - Environment variable: `SURF_NETWORK_PATH` -> `BROWSE_NETWORK_PATH`
+  - Native host: `surf.browser.host` -> `browse.browser.host`
+  - This fork is independently maintained and not affiliated with or endorsed by the original project.
+
 ### Fixed
 - **page.text** - Now returns clean text content without JavaScript and CSS. Changed from `textContent` to `innerText` which properly excludes script/style tag content.
 

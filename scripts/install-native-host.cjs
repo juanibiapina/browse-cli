@@ -4,7 +4,7 @@ const path = require("path");
 const os = require("os");
 const { execSync, spawnSync } = require("child_process");
 
-const HOST_NAME = "surf.browser.host";
+const HOST_NAME = "browse.browser.host";
 
 const BROWSERS = {
   chrome: {
@@ -84,11 +84,11 @@ function getWrapperDir() {
   const home = os.homedir();
   switch (platform) {
     case "darwin":
-      return path.join(home, "Library/Application Support/surf-cli");
+      return path.join(home, "Library/Application Support/browse-cli");
     case "linux":
-      return path.join(home, ".local/share/surf-cli");
+      return path.join(home, ".local/share/browse-cli");
     case "win32":
-      return path.join(process.env.LOCALAPPDATA || path.join(home, "AppData/Local"), "surf-cli");
+      return path.join(process.env.LOCALAPPDATA || path.join(home, "AppData/Local"), "browse-cli");
     default:
       return null;
   }
@@ -97,7 +97,7 @@ function getWrapperDir() {
 function getHostPath() {
   const npmRoot = findNpmGlobalRoot();
   if (npmRoot) {
-    const globalPath = path.join(npmRoot, "surf-cli/native/host.cjs");
+    const globalPath = path.join(npmRoot, "@juanibiapina/browse-cli/native/host.cjs");
     if (fs.existsSync(globalPath)) return globalPath;
   }
   const localPath = path.resolve(__dirname, "../native/host.cjs");
@@ -164,7 +164,7 @@ function installWindowsRegistry(browser, extensionId, wrapperPath) {
 
   const manifest = {
     name: HOST_NAME,
-    description: "Surf CLI Native Host",
+    description: "Browse CLI Native Host",
     path: wrapperPath,
     type: "stdio",
     allowed_origins: [`chrome-extension://${extensionId}/`],
@@ -208,7 +208,7 @@ function parseArgs() {
 
 function printHelp() {
   console.log(`
-Surf CLI Native Host Installer
+Browse CLI Native Host Installer
 
 Usage: install-native-host.cjs <extension-id> [options]
 
@@ -254,7 +254,7 @@ function main() {
   const hostPath = getHostPath();
   if (!hostPath) {
     console.error("Error: Could not find host.cjs");
-    console.error("Make sure surf-cli is installed correctly");
+    console.error("Make sure browse-cli is installed correctly");
     process.exit(1);
   }
 

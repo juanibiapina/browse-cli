@@ -1,4 +1,4 @@
-// Network request formatters for surf-cli
+// Network request formatters for browse-cli
 
 /**
  * Format bytes to human readable size
