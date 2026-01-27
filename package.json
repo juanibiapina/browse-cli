@@ -1,6 +1,6 @@
 {
   "name": "@juanibiapina/browse-cli",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "CLI for AI agents to control Chrome. Zero config, agent-agnostic, battle-tested.",
   "keywords": [
     "chrome",
