@@ -117,7 +117,7 @@ function createWrapper(wrapperDir, nodePath, hostPath) {
   } else {
     const shPath = path.join(wrapperDir, "host-wrapper.sh");
     const hostDir = path.dirname(hostPath);
-    const content = `#!/usr/bin/env bash
+    const content = `#!/bin/sh
 cd "${hostDir}"
 exec "${nodePath}" "${hostPath}"
 `;
