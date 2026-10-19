@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - This fork is independently maintained and not affiliated with or endorsed by the original project.
 
 ### Fixed
+- **page.read** - Password fields no longer show their typed value as the element name.
 - **page.text** - Now returns clean text content without JavaScript and CSS. Changed from `textContent` to `innerText` which properly excludes script/style tag content.
 
 ### Removed

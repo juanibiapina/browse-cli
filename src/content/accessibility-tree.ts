@@ -441,7 +441,7 @@ function generateAccessibilityTree(
         const type = element.getAttribute("type") || "";
         const value = element.getAttribute("value");
         if (type === "submit" && value?.trim()) return value.trim();
-        if (input.value && input.value.length < 50 && input.value.trim()) return input.value.trim();
+        if (input.type !== "password" && input.value && input.value.length < 50 && input.value.trim()) return input.value.trim();
       }
 
       if (["button", "a", "summary"].includes(tag)) {
@@ -892,7 +892,7 @@ function generateYamlTree(
         const type = element.getAttribute("type") || "";
         const value = element.getAttribute("value");
         if (type === "submit" && value?.trim()) return value.trim();
-        if (input.value && input.value.length < 50 && input.value.trim()) return input.value.trim();
+        if (input.type !== "password" && input.value && input.value.length < 50 && input.value.trim()) return input.value.trim();
       }
 
       if (["button", "a", "summary"].includes(tag)) {
